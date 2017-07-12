@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ tinymce_init() }}
+    <h3>Nouvelle recette</h3>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col s12">
+            {{ form_row(form.name) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            {{ form_row(form.description) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4">
+            {{ form_row(form.guest) }}
+        </div>
+        <div class="col s4">
+            {{ form_row(form.bakingDuration) }}
+        </div>
+        <div class="col s4">
+            {{ form_row(form.makingDuration) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            {{ form_row(form.making) }}
+        </div>
+    </div>
+    <h4>Ingredients</h4>
+    <ul class="ingredients"  data-prototype='{% include "partials/shortIngredient.html.twig" %}'>
+        {% for ingredient in form.ingredients %}
+            <li>
+                <div class="row">
+                    <div class="col s4">
+                        {{ form_row(ingredient.name) }}
+                    </div>
+                    <div class="col s4">
+                        {{ form_row(ingredient.quantity) }}
+                    </div>
+                    <div class="col s4">
+                        {{ form_row(ingredient.unit) }}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="row">
+        <div class="col s12 center-align">
+            <input type="submit" value="Enregistrer" />
+        </div>
+    </div>
+    {{ form_widget(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+    <div class="row">
+        <div class="col s12">
+            <a href="{{ path('recipe_index') }}">Back to the list</a>
+        </div>
+    </div>
+{% endblock %}
