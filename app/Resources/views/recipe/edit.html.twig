@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Recipe edit</h1>
+
+    {{ form_start(edit_form) }}
+    {{ form_row(edit_form.name) }}
+    {{ form_row(edit_form.description) }}
+    {{ form_row(edit_form.guest) }}
+    {{ form_row(edit_form.bakingDuration) }}
+    {{ form_row(edit_form.makingDuration) }}
+    {{ form_row(edit_form.making) }}
+        <h3>Ingredients</h3>
+        <ul class="ingredients"  data-prototype='{% include "partials/shortIngredient.html.twig" with {'form': edit_form} %}'>
+            {% for ingredient in edit_form.ingredients %}
+                <li>
+                    <div class="row">
+                        <div class="col s4">
+                            {{ form_row(ingredient.name) }}
+                        </div>
+                        <div class="col s4">
+                            {{ form_row(ingredient.quantity) }}
+                        </div>
+                        <div class="col s4">
+                            {{ form_row(ingredient.unit) }}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <input type="submit" value="Enregistrer" />
+    {{ form_widget(edit_form._token) }}
+    {{ form_end(edit_form, {'render_rest': false}) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('recipe_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
